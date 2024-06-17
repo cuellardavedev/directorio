@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sociedad Mexicana de Tricología</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        .bg-custom {
+            background: linear-gradient(145deg, #111 0%, #444 100%);
+        }
+
+        .styled-button {
+            background-color: #ccc; /* Gris claro */
+            width: 40px; /* Ajusta el ancho según el tamaño del icono */
+            height: 40px; /* Ajusta la altura según el tamaño del icono */
+            border-radius: 50%; /* Para redondear las esquinas y crear un círculo */
+            display: flex; /* Para centrar el icono */
+            justify-content: center;
+            align-items: center;
+            border: none; /* Elimina el borde predeterminado del botón */
+            cursor: pointer; /* Cambia el cursor al pasar el mouse por encima */
+        }
+
+        #search-button {
+            background-color: #cec5c580; /* Gris claro */
+            width: 41px; /* Ajusta el ancho según el tamaño del icono */
+            height: 42px; /* Ajusta la altura según el tamaño del icono */
+            border-radius: 50%; /* Para redondear las esquinas y crear un círculo */
+            display: flex; /* Para centrar el icono */
+            justify-content: center;
+            align-items: center;
+        }
+
+        #search-button i {
+            font-size: inherit; /* Ajusta el tamaño del icono si es necesario */
+        }
+
+        #search-button span {
+            display: none; /* Oculta el texto "Buscar" por defecto */
+        }
+
+        @media (max-width: 768px) {
+            #search-button {
+                background-color: #cec5c580; /* Gris claro */
+                width: auto; /* Ajusta el ancho automáticamente */
+                height: auto; /* Ajusta la altura automáticamente */
+                padding: 8px 16px; /* Ajusta el relleno según sea necesario */
+                border-radius: 20px; /* Ajusta el radio de las esquinas según sea necesario */
+            }
+
+            #search-button i {
+                display: none; /* Oculta el icono */
+            }
+
+            #search-button span {
+                display: block; /* Muestra el texto */
+                font-weight: bold; /* Establece el peso del texto en negrita */
+            }
+        }
+    </style>
+</head>
+<header class="flex items-center justify-between py-4 px-8 bg-white">
+    <div class="flex items-center space-x-4">
+        <img src="https://static.wixstatic.com/media/ec365a_bf1910643b32437389e87b7bff6d90e0~mv2.png/v1/crop/x_0,y_316,w_1080,h_448/fill/w_271,h_113,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/smdt%20Post.png" alt="Logo of Sociedad Mexicana de Tricología" class=" pl- w-54 h-24 object-cover">
+       
+    </div>
+    <nav class="hidden md:flex space-x-8 text-lg">
+        <a href="https://www.tricologia.org.mx/" class="text-gray-700 text-sm font-thin">Inicio</a>
+        <a href="https://www.tricologia.org.mx/" class="text-gray-700 text-sm font-thin">Nosotros</a>
+        <a href="#" class="text-teal-500 text-sm font-thin">Directorio</a>
+        <a href="https://www.tricologia.org.mx/eventos" class="text-gray-700 text-sm font-thin">Eventos</a>
+        <a href="https://www.tricologia.org.mx/pacientes" class="text-gray-700 text-sm font-thin">Pacientes</a>
+        <a href="https://www.tricologia.org.mx/" class="text-gray-700 text-sm font-thin">Contacto</a>
+    </nav>
+    <button class="md:hidden toggle-sidebar" title="Toggle Sidebar">
+        <i class="fas fa-bars"></i>
+    </button>
+</header>
+<body class="bg-white font-sans">
+
+    
+    <div class="flex flex-col items-center justify-center min-h-full p-4">
+        
+        <div class="bg-custom p-6 rounded-lg shadow-lg w-full max-w-3xl text-center">
+            <div class="flex justify-center items-center mb-4">
+                <img src="http://72.167.133.29/Tricologia/assets/img/logoMejoresDermas/logo_tricologia_encabezado.png" alt="SMDT Logo"
+                    class="h-20 w-auto">
+            </div>
+            <h2 class="text-2xl font-bold text-white mb-6">Encuentra a tu Tricólogo</h2>
+            <!-- Search fields -->
+            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+                <div class="relative w-full sm:w-auto">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                    <input type="text" placeholder="Nombre del Médico" aria-label="Nombre del Médico"
+                        class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
+                        id="doctor-search">
+                    <ul id="doctor-suggestions"
+                        class="absolute z-10 mt-1 w-full rounded-md shadow-lg bg-white hidden"></ul>
+                </div>
+                <div class="relative w-full sm:w-auto">
+                    <i class="fas fa-chevron-down absolute left-3 top-3 text-gray-400"></i>
+                    <select class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full sm:w-64"
+                        id="location-select">
+                        <option value="">Todos los Estados</option>
+                    </select>
+                </div>
+
+                <button id="search-button" class="styled-button px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-white bg-blue-500 hover:bg-blue-600">
+                    <i class="fas fa-search"></i>
+                    <span>Buscar</span> </button>
+
+            </div>
+        </div>
+
+        <!-- Doctor Details Container -->
+        <div id="doctor-details-container" class="mt-8"></div>
+
+    </div>
+
+    <script>
+        // 1. Fetch and Parse CSV data
+        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRQ-h3ja0JG6vp0sTpuBQmp_46L575rG3HDC-bTEz_QozuCQSQJexNq2nMjDUVhh5NORZAfbfJ8_GtZ/pub?output=csv')
+            .then(response => response.text())
+            .then(csvData => {
+                const doctors = [];
+                const rows = csvData.split('\n');
+                const headers = rows[0].split(',');
+
+                for (let i = 1; i < rows.length; i++) {
+                    const doctor = {};
+                    const values = rows[i].split(',');
+                    for (let j = 0; j < headers.length; j++) {
+                        doctor[headers[j].trim()] = values[j].trim();
+                    }
+                    doctors.push(doctor);
+                }
+
+                // 2. Add Event Listeners for Filtering
+                const doctorSearchInput = document.getElementById('doctor-search');
+                const locationSelect = document.getElementById('location-select');
+                const doctorSuggestions = document.getElementById('doctor-suggestions');
+                const searchButton = document.getElementById('search-button');
+
+                doctorSearchInput.addEventListener('input', () => {
+                    const searchTerm = doctorSearchInput.value.toLowerCase();
+                    const filteredDoctors = doctors.filter(doctor =>
+                        doctor.MÉDICO.toLowerCase().includes(searchTerm)
+                    );
+                    displayDoctorSuggestions(filteredDoctors);
+
+                    // Update suggestions
+                    if (searchTerm.length > 0) {
+                        const suggestions = filteredDoctors
+                            .slice(0, 5) // Limit to 5 results
+                            .map(doctor => `<li class="p-2 hover:bg-gray-200 cursor-pointer">${doctor.MÉDICO}</li>`);
+
+                        doctorSuggestions.innerHTML = suggestions.join('');
+                        doctorSuggestions.classList.remove('hidden');
+                    } else {
+                        doctorSuggestions.innerHTML = '';
+                        doctorSuggestions.classList.add('hidden');
+                    }
+                });
+
+                doctorSuggestions.addEventListener('click', (event) => {
+                    if (event.target.tagName === 'LI') {
+                        doctorSearchInput.value = event.target.textContent;
+                        doctorSuggestions.classList.add('hidden');
+                    }
+                });
+
+                locationSelect.addEventListener('change', () => {
+                    const selectedState = locationSelect.value.toLowerCase();
+                    if (selectedState === "") {
+                        displayDoctorSuggestions(doctors);
+                    } else {
+                        const filteredDoctors = doctors.filter(doctor =>
+                            doctor.ESTADO.toLowerCase() === selectedState
+                        );
+                        displayDoctorSuggestions(filteredDoctors);
+                    }
+                });
+
+                searchButton.addEventListener('click', () => {
+                    const searchTerm = doctorSearchInput.value.toLowerCase();
+                    const selectedState = locationSelect.value.toLowerCase();
+                    const filteredDoctors = doctors.filter(doctor => {
+                        return doctor.MÉDICO.toLowerCase().includes(searchTerm) &&
+                            (selectedState === "" || doctor.ESTADO.toLowerCase() === selectedState);
+                    });
+                    // Redirect to the second page with search parameters
+                    window.location.href = `ListadoSMDT (1).html?name=${searchTerm}&state=${selectedState}`;
+                });
+
+                // 4. Populate Location Select
+                const uniqueStates = [...new Set(doctors.map(doctor => doctor.ESTADO))];
+                uniqueStates.forEach(state => {
+                    const option = document.createElement('option');
+                    option.value = state;
+                    option.text = capitalizeAllWords(state);
+                    locationSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error("Error al cargar los datos:", error);
+            });
+
+        // 2. Display Doctor Suggestions
+        function displayDoctorSuggestions(doctors) {
+            const doctorSuggestions = document.getElementById('doctor-suggestions');
+            doctorSuggestions.innerHTML = ''; // Clear previous content
+
+            const suggestions = doctors.map(doctor => {
+                const listItem = document.createElement('li');
+                listItem.className = 'p-3 rounded-full hover:bg-gray-300 transition cursor-pointer text-sm';
+                listItem.textContent = doctor.MÉDICO;
+
+                // Add event listener to show details
+                listItem.addEventListener('click', () => {
+                    displayDoctorDetails(doctors, index);
+                });
+
+                return listItem;
+            });
+
+            suggestions.forEach(suggestion => doctorSuggestions.appendChild(suggestion));
+        }
+
+
+        // 4. Capitalize Words
+        function capitalizeAllWords(str) {
+            return str.replace(/\b\w/g, function (word) {
+                return word.toUpperCase();
+            });
+        }
+
+        // 5. Display Doctor Details (Add this function)
+        function displayDoctorDetails(doctors) {
+            const doctorDetailsContainer = document.getElementById('doctor-details-container');
+            doctorDetailsContainer.innerHTML = ''; // Clear previous content
+
+            // Example: Displaying the first doctor's details
+            if (doctors.length > 0) {
+                const doctor = doctors[0];
+                const doctorDetails = `
+                    <div class="p-4 rounded-lg shadow-lg bg-gray-100 w-full max-w-3xl">
+                        <h3 class="text-xl font-bold mb-2">${doctor.MÉDICO}</h3>
+                        <p><strong>Especialidad:</strong> ${doctor.ESPECIALIDAD}</p>
+                        <p><strong>Estado:</strong> ${doctor.ESTADO}</p>
+                        <p><strong>Teléfono:</strong> ${doctor.TELÉFONO}</p>
+                        <p><strong>Correo:</strong> ${doctor.CORREO}</p>
+                        <p><strong>Página Web:</strong> <a href="${doctor.PÁGINA_WEB}" target="_blank">${doctor.PÁGINA_WEB}</a></p>
+                    </div>
+                `;
+
+                doctorDetailsContainer.innerHTML = doctorDetails;
+            } else {
+                doctorDetailsContainer.innerHTML = '<p>No se encontraron resultados.</p>';
+            }
+        }
+    </script>
+</body>
+
+</html>
